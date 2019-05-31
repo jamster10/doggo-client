@@ -4,9 +4,9 @@ import { NavLink } from 'react-router-dom'
 
 
 
-const Navbar = ({loggedIn}) => {
+const Navbar = ({ loggedIn }) => {
 
-  let userControls = loggedIn ? <div className= "user-controls"><button>My Routes</button>|<button>Logout</button></div> : <div className= "user-controls"><button><NavLink to="/login">Login</NavLink></button>|<button>Sign Up!</button></div>;
+  let userControls = loggedIn ? <div className= "user-controls"><button>My Routes</button>|<button>Logout</button></div> : <div className= "user-controls"><button><NavLink to="/login">Login</NavLink></button>|<button><NavLink to="/register">Sign Up!</NavLink></button></div>;
   
   return (
     <nav className='Navbar'>

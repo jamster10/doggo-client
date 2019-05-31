@@ -19,10 +19,10 @@ const Login = ({errorHandler}) =>  {
       });
     }
   return <form className="login-form" onSubmit={handleSubmit}>
-    <label htmlFor="username">Username<span className="required">*</span>: </label>
+    <label htmlFor="username">Username: </label>
     <input type="text" className="login-input" name="username" id="username" maxLength="15" minLength="3" placeholder="doggo_fan" required/>
     <br/>
-    <label htmlFor="password">Password<span className="required">*</span>: </label>
+    <label htmlFor="password">Password: </label>
     <input type="password" className="login-input" name="password" id="password" maxLength="60" minLength="8" placeholder="" required/>
     <br/>
     <br/>

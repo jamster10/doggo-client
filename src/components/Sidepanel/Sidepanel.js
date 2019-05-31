@@ -1,8 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './Sidepanel.css';
+
 import SearchForm from '../SearchForm/SearchForm';
 import Login from '../Login/Login'
+import Register from '../Register/Register';
 
 
 
@@ -13,11 +15,16 @@ const Sidepanel = ({children, loggedIn, searchSettings, errorHandler}) => {
 
   const headerBar = children ? <p className="error-message">{children}</p> : !loggedIn ? <p className="welcome-text"><b>Welcome to DogGo!</b></p> : userButtons;
 
+  const joinus = () => {
+
+  }
+
 
 
   return (
   <div className="Sidepanel">
     <div className="controls">
+      <button>Search</button> 
       {headerBar}
     </div>
     <Switch>
@@ -27,8 +34,14 @@ const Sidepanel = ({children, loggedIn, searchSettings, errorHandler}) => {
         render={() => <SearchForm searchSettings={searchSettings} />}
       />
       <Route
-        exactpath={'/login'}
+        exact
+        path={'/login'}
         render={() => <Login errorHandler={errorHandler}/>}
+      />
+      <Route
+        exact
+        path={'/register'}
+        render={() => <Register errorHandler={errorHandler}/>}
       />
     </Switch>
  
