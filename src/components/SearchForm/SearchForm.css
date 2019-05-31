@@ -1,0 +1,25 @@
+.query-input{
+  width: 300px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid black;
+}
+label{
+  text-align: right;
+  margin-right: 15px;
+}
+
+.input-end{
+  padding-left: 10px;
+}
+
+fieldset{
+  margin-top: 30px;
+}
+
+.query-form{
+  margin-top:15px;
+  margin-left:10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid black;
+}

@@ -1,0 +1,44 @@
+.Navbar{
+  width: 100%;
+  border-bottom: 1px solid grey;
+  padding: 15px 0px;
+  height: 30px;
+  background-color: rgba(255,255,255,.7)
+}
+
+.logo-container{
+  position: absolute;
+  display: inline-block;
+  left:10%
+
+}
+.logo-img{
+  height:30px;
+
+}
+.brand{
+  display: inline-block;
+  margin-top: 0px;
+  font-size: 34px;
+  width: 180px;
+  top: -5px;
+  position: absolute;
+}
+
+.user-controls{
+  display: inline;
+  position: absolute;
+  right: 5%;
+}
+
+.user-controls > button{
+  background-color: transparent;
+  padding: 10px 10px;
+  border: none;
+  display: inline;
+}
+
+.user-controls > button:hover{
+  border-bottom: 1px solid white;
+  font-weight: 600;
+}

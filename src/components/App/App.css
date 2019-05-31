@@ -1,0 +1,17 @@
+body{
+  background-color: lightblue;
+  font-family: 'ABeeZee', sans-serif;
+  min-width: 350px;
+}
+
+
+@media screen and (min-width: 700px){
+  .map-container{
+    width: 60%;
+  }
+  main{
+    display: flex;
+  }
+}
+
+

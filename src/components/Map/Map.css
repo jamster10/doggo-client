@@ -1,0 +1,19 @@
+#map{
+  height: 400px;
+  min-width: 100%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+/* .map-container{
+  margin: 0 auto;
+  max-width: 800px;
+  height: 550px;
+  text-align: center;
+} */
+
+@media screen and (min-width: 700px){
+  #map{
+    height: 100%;
+  }
+}

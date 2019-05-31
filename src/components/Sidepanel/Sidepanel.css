@@ -1,0 +1,48 @@
+.Sidepanel{
+  overflow-y: auto;
+  background-color: rgb(235, 245, 253);
+  border-left: 1px solid black;
+  height: 92vh;
+  width: 100%;
+  
+}
+
+
+.controls{
+  border-bottom: 1px solid rgb(95, 100, 102);
+  height: 63px;
+}
+
+.user-buttons{
+  font-size: 20px;
+  text-align: center;
+  background-color: transparent;
+  border: 1px solid black;
+  border-bottom: none;
+  padding: 10px 5px;
+  margin-bottom: 0px;
+  margin-top: 20px;
+  margin-left: 10px;
+
+}
+
+.welcome-text{ 
+  text-align: center;
+}
+
+.logged-in-controls{
+  margin: auto;
+  width: 375px;
+}
+
+.error-message{
+  color: red;
+  font-size: 15px;
+  text-align: center;
+}
+
+@media screen and (min-width: 700px){
+  .Sidepanel{
+    width: 40%;
+  }
+}
