@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, NavLink } from 'react-router-dom';
 import './Sidepanel.css';
 
 import SearchForm from '../SearchForm/SearchForm';
@@ -15,16 +15,14 @@ const Sidepanel = ({children, loggedIn, searchSettings, errorHandler}) => {
 
   const headerBar = children ? <p className="error-message">{children}</p> : !loggedIn ? <p className="welcome-text"><b>Welcome to DogGo!</b></p> : userButtons;
 
-  const joinus = () => {
-
-  }
+  
 
 
 
   return (
   <div className="Sidepanel">
     <div className="controls">
-      <button>Search</button> 
+      {/* <button><NavLink to='/'>Search</NavLink></button>  */}
       {headerBar}
     </div>
     <Switch>

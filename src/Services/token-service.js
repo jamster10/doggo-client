@@ -1,15 +1,15 @@
 import jwtDecode from 'jwt-decode';
-import TOKEN_KEY from '../config';
+import config from '../config';
 
 const TokenService = {
   saveAuthToken(token) {
-    window.localStorage.setItem(TOKEN_KEY, token);
+    window.localStorage.setItem(config.TOKEN_KEY, token);
   },
   getAuthToken() {
-    return window.localStorage.getItem(TOKEN_KEY)
+    return window.localStorage.getItem(config.TOKEN_KEY)
   },
   clearToken() {
-    window.localStorage.removeItem(TOKEN_KEY);
+    window.localStorage.removeItem(config.TOKEN_KEY);
   },
   hasAuthToken() {
     return !!TokenService.getAuthToken();

@@ -6,10 +6,16 @@ const Login = ({errorHandler}) =>  {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { username, password } = e.target;
-    console.log(username, password)
-    AuthService.loginUser({user_name: username.value,
-      password: password.value,})
+
+    AuthService.loginUser({
+      user_name: username.value,
+      password: password.value
+    })
       .then(res =>{
+        console.log(res);
+        if (res.message){ 
+          return Promise.reject(res) 
+        }
         username.value = "";
         password.value = "";
       })

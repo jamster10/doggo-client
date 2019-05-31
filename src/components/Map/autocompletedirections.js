@@ -76,11 +76,14 @@ AutocompleteDirectionsHandler.prototype.route = function (map) {
         //}
 
         //mapHandler()
+        clearMap(me.drawn);
         drawBoxes(boxes, map, me.drawn);
         //clearMap(me.drawn);
 
         var service = new window.google.maps.places.PlacesService(map);
         // Perform a nearby search.
+
+
         boxes.forEach(bound => {
           service.textSearch(
             { query: 'dog', bounds: bound, type: ['bar'] },
