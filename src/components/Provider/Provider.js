@@ -68,12 +68,12 @@ class Provider extends React.Component{
 
     return(
       <>  
-        <div className="map-container">
-          {this.props.location.city ? <Map location = {this.props.location} handleOriginAutoComplete={this.handleOriginAutoComplete} handleDestinationAutoComplete={this.handleDestinationAutoComplete} /> : <p className="loading-text">Please wait while the map loads</p>} 
-        </div>
         <Sidepanel loggedIn={this.props.loggedIn} searchSettings = {searchSettings} errorHandler={this.props.errorHandler}>
           {this.props.error ? this.props.error : ""}
         </Sidepanel>
+        <div className="map-container">
+          {this.props.location.city ? <Map location = {this.props.location} handleOriginAutoComplete={this.handleOriginAutoComplete} handleDestinationAutoComplete={this.handleDestinationAutoComplete} /> : <p className="loading-text">Please wait while the map loads</p>} 
+        </div>
       </>
 
     )

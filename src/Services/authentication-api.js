@@ -4,21 +4,23 @@ import TokenService from './token-service'
 
 const AuthService = {
   registerUser(user) {
-    return fetch(config.API_ENDPOINT + '/api/users/register', {
+    console.log(user)
+    return fetch(config.API_ENDPOINT + '/users/register', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
       },
       body: JSON.stringify(user),
     })
+    .then(res => res.json())
     .then(res => {
+      
       if (!res.ok) { 
-        res.json()
-          .then(e => Promise/rejects(e))
+        return Promise.reject(res)
       }
-      res.json()
+      this.loginUser(user)
     })
-    .catch(console.log)
+    .catch(e => e)
   }, 
   loginUser(user) {
     return fetch(config.API_ENDPOINT + '/auth/login', {
@@ -29,15 +31,13 @@ const AuthService = {
       body: JSON.stringify(user)
     })
     .then(res => {
+      console.log(res.ok)
       if (!res.ok) {
         return Promise.reject(res.json())
        }
       return res.json()
     })
     .then(res => {
-      console.log(res)
-      console.log(res.body)
-      console.log('herre')
       TokenService.saveAuthToken(res.token)
       //add expiration here
       return res;

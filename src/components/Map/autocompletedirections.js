@@ -12,8 +12,10 @@ export default function AutocompleteDirectionsHandler(map, RouteBoxer, mapHandle
   this.directionsDisplay = new window.google.maps.DirectionsRenderer();
   this.directionsDisplay.setMap(map);
   this.mapHandler = mapHandler;
-  this.drawn = [];
-  this.response = null;
+  this.drawn = []; //using to hold all routeboxer bounds
+  this.response = null; //using to hold response from server
+  this.markers = []; //using to hold all the markers
+
 
 
 
@@ -22,7 +24,7 @@ export default function AutocompleteDirectionsHandler(map, RouteBoxer, mapHandle
 
   this.origin = new window.google.maps.places.Autocomplete(originInput);
   this.destination = new window.google.maps.places.Autocomplete(destinationInput);
-  console.log('below')
+
 
   this.setupPlaceChangedListener(this.origin, 'ORIG');
   this.setupPlaceChangedListener(this.destination, 'DEST');
@@ -76,7 +78,8 @@ AutocompleteDirectionsHandler.prototype.route = function (map) {
         //}
 
         //mapHandler()
-        clearMap(me.drawn);
+        clearRouteBoxes(me.drawn);
+        clearMarkers(me.markers, map)
         drawBoxes(boxes, map, me.drawn);
         //clearMap(me.drawn);
 
@@ -116,8 +119,9 @@ AutocompleteDirectionsHandler.prototype.route = function (map) {
               title: place.name,
               position: place.geometry.location
             });
-
+            me.markers.push(marker)
             bounds.extend(place.geometry.location);
+            console.log(me.markers)
           }
           map.fitBounds(bounds);
         }
@@ -149,7 +153,20 @@ function drawBoxes(boxes, map, boxpolys) {
   }
 }
 
-function clearMap(boxpolys) {
+
+
+
+
+function clearRouteBoxes(boxpolys) {
   boxpolys.forEach(item => item.setMap(null))
 
 }
+
+
+function clearMarkers(markers) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
+  }
+  markers.length = [];
+}
+

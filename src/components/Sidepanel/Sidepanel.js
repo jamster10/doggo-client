@@ -6,6 +6,8 @@ import SearchForm from '../SearchForm/SearchForm';
 import Login from '../Login/Login'
 import Register from '../Register/Register';
 
+import TokenService from '../../Services/token-service'
+
 
 
 
@@ -13,7 +15,7 @@ import Register from '../Register/Register';
 const Sidepanel = ({children, loggedIn, searchSettings, errorHandler}) => {
   const userButtons = <div className="logged-in-controls"><button className="user-buttons">Search</button><button className="user-buttons">My Routes</button><button className="user-buttons">My Places</button></div>
 
-  const headerBar = children ? <p className="error-message">{children}</p> : !loggedIn ? <p className="welcome-text"><b>Welcome to DogGo!</b></p> : userButtons;
+  const headerBar = children ? <p className="error-message">{children}</p> : !TokenService.hasAuthToken() ? <p className="welcome-text"><b>Welcome to DogGo!</b></p> : userButtons;
 
   
 

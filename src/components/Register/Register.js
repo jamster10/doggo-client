@@ -40,8 +40,15 @@ const Registration = ({errorHandler}) => {
       password: password.value,
     }
     
-    if (nickname) newUser.nickname = nickname;
+    if (nickname) newUser.nickname = nickname.value;
+    
     AuthService.registerUser(newUser)
+    .then(res => {
+      if (res.message){ 
+        return Promise.reject(res) 
+      }
+    })
+    .catch(e => errorHandler(e))
   };
 
   return (  <form 
