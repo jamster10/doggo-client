@@ -1,6 +1,6 @@
 import SearchHandler from './SearchHandler'
 
-export default function AutocompleteDirectionsHandler(map, RouteBoxer, selection, resultsHandler) {
+export default function AutocompleteDirectionsHandler(map, RouteBoxer, selection, resultsHandler, enableSearch, preventSearch) {
 
   this.distance = 15;
   this.routeBoxer = new RouteBoxer();
@@ -16,6 +16,9 @@ export default function AutocompleteDirectionsHandler(map, RouteBoxer, selection
   this.response = null; //using to hold response from server
   this.markers = []; //using to hold all the markers
   this.resultsHandler  = resultsHandler;
+  this.enableSearch = enableSearch;
+  this.preventSearch = preventSearch;
+  this.beginSearch = null
   //this.selections = selections;
 
 
@@ -58,9 +61,14 @@ AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function (
 };
 
 AutocompleteDirectionsHandler.prototype.route = function (map) {
-  if (!this.originPlaceId || !this.destinationPlaceId) {
-    return;
+  console.log(this)
+
+  if ( (!this.originPlaceId || !this.destinationPlaceId) || !this.enableSearch) {
+    console.log(!this.originPlaceId, !this.destinationPlaceId)
+    console.log(!this.enableSearch)
+    return
   }
+  this.preventSearch();
   var me = this;
 
   this.directionsService.route(
@@ -111,34 +119,34 @@ AutocompleteDirectionsHandler.prototype.route = function (map) {
 
 
 
-        function createMarkers(results) {
+        // function createMarkers(results) {
 
-          results.forEach(places => {
+        //   results.forEach(places => {
 
-          var bounds = new window.google.maps.LatLngBounds();
+        //   var bounds = new window.google.maps.LatLngBounds();
 
-          for (var i = 0, place; place = places[i]; i++) {
-            var image = {
-              url: place.icon,
-              size: new window.google.maps.Size(71, 71),
-              origin: new window.google.maps.Point(0, 0),
-              anchor: new window.google.maps.Point(17, 34),
-              scaledSize: new window.google.maps.Size(25, 25)
-            };
+        //   for (var i = 0, place; place = places[i]; i++) {
+        //     var image = {
+        //       url: place.icon,
+        //       size: new window.google.maps.Size(71, 71),
+        //       origin: new window.google.maps.Point(0, 0),
+        //       anchor: new window.google.maps.Point(17, 34),
+        //       scaledSize: new window.google.maps.Size(25, 25)
+        //     };
 
-            var marker = new window.google.maps.Marker({
-              map: map,
-              icon: image,
-              title: place.name,
-              position: place.geometry.location
-            });
-            me.markers.push(marker)
-            bounds.extend(place.geometry.location);
-            console.log(me.markers)
-          }
-          map.fitBounds(bounds);
-        })
-        }
+        //     var marker = new window.google.maps.Marker({
+        //       map: map,
+        //       icon: image,
+        //       title: place.name,
+        //       position: place.geometry.location
+        //     });
+        //     me.markers.push(marker)
+        //     bounds.extend(place.geometry.location);
+        //     console.log(me.markers)
+        //   }
+        //   map.fitBounds(bounds);
+        // })
+        // }
 
 
         // return boxes;

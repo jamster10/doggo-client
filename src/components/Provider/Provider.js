@@ -17,14 +17,18 @@ class Provider extends React.Component{
       {}
     ),
     searchRange: 5,
-    resutls: []
+    results: [],
+    enableSearch: false
   }
 
-  getCurrentSelection = () => {
-    return Object.keys(this.state.checkboxes).filter(key => this.state.checkboxes[key])
+  handleEnableSearch = (e) => {
+    e.preventDefault();
+    this.setState({ enableSearch: true })
   }
-  
-  
+
+  handleDisableSearch = () => {
+    this.setState({ enableSearch: false })
+  }
 
   handleOriginAutoComplete = (value) => {
     this.setState({
@@ -37,6 +41,7 @@ class Provider extends React.Component{
       'destination-input': value
     })
   }
+
  
   handleCheckboxChange = e => {
     const { name } = e.target;
@@ -63,16 +68,14 @@ class Provider extends React.Component{
     icon: res.icon,
     name: res.name,
     open_now: res.opening_hours.open_now,
-    photos: [{}],
+    photo: res.photos[0].getUrl(),
     place_id: res.place_id,
     price_level: res.price_level,
     rating: res.rating,
     user_ratings_total: res.user_ratings_total,
-    geometry: {}
+    location: res.geometry.location
   }))
-
-  //  }));
-  //  this.setState({results})
+  this.setState({results: [...this.state.results, ...results]})
  }
 
   render(){
@@ -89,11 +92,20 @@ class Provider extends React.Component{
 
     return(
       <>  
-        <Sidepanel loggedIn={this.props.loggedIn} searchSettings = {searchSettings} errorHandler={this.props.errorHandler}>
-          {this.props.error ? this.props.error : ""}
+        <Sidepanel 
+        loggedIn={this.props.loggedIn} 
+        searchSettings = {searchSettings} 
+        errorHandler={this.props.errorHandler} 
+        enableSearch={this.handleEnableSearch}
+        results = {this.state.results}
+        >
+        {this.props.error ? this.props.error : ""}
+
         </Sidepanel>
         <div className="map-container">
           {this.props.location.city ? <Map 
+          enableSearch={this.state.enableSearch}
+          preventSearch={this.handleDisableSearch}
           location = {this.props.location} 
           searchRange = {this.state.searchRange}
           handleOriginAutoComplete={this.handleOriginAutoComplete} 

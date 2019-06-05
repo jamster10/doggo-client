@@ -2,17 +2,17 @@ import React from 'react';
 import { Route, Switch, NavLink } from 'react-router-dom';
 import './Sidepanel.css';
 
-import SearchForm from '../SearchForm/SearchForm';
+import SearchView from '../SearchView/SearchView';
 import Login from '../Login/Login'
 import Register from '../Register/Register';
-
-import TokenService from '../../Services/token-service'
-
+import TokenService from '../../Services/token-service';
 
 
 
 
-const Sidepanel = ({children, loggedIn, searchSettings, errorHandler}) => {
+
+
+const Sidepanel = ({children, searchSettings, errorHandler, enableSearch, results}) => {
   const userButtons = <div className="logged-in-controls"><button className="user-buttons">Search</button><button className="user-buttons">My Routes</button><button className="user-buttons">My Places</button></div>
 
   const headerBar = children ? <p className="error-message">{children}</p> : !TokenService.hasAuthToken() ? <p className="welcome-text"><b>Welcome to DogGo!</b></p> : userButtons;
@@ -31,7 +31,7 @@ const Sidepanel = ({children, loggedIn, searchSettings, errorHandler}) => {
       <Route
         exact
         path={'/'}
-        render={() => <SearchForm searchSettings={searchSettings} />}
+        render={() => <SearchView searchSettings={searchSettings} enableSearch={enableSearch} results={results} />}
       />
       <Route
         exact
@@ -44,7 +44,7 @@ const Sidepanel = ({children, loggedIn, searchSettings, errorHandler}) => {
         render={() => <Register errorHandler={errorHandler}/>}
       />
     </Switch>
- 
+    
 
   </div>
   

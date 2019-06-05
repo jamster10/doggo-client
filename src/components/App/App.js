@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Navbar from '../Navbar/Navbar';
 import Provider from '../Provider/Provider';
+import Modal from '../Modal/Modal.js';
+import Intro from '../Intro/Intro'
 
 class App extends Component {
   state={
@@ -25,14 +27,14 @@ class App extends Component {
   }
 
   getLocation = () => {
-    return fetch('https://geoip-db.com/json/')
+    return fetch('http://ip-api.com/json/')
     .then(res=>res.json())
     .then(loc => {
       if(!loc.city) return Promise.reject({message: 'no city provided'})
       this.setState({
       location: {
-        lat: loc.latitude,
-        lon: loc.longitude,
+        lat: loc.lat,
+        lon: loc.lon,
         city: loc.city,
         }, 
       })
@@ -66,6 +68,9 @@ class App extends Component {
   render() {
     return (
       <>
+        {/* <Modal>
+          <Intro/>
+        </Modal> */}
       <nav>
       <Navbar loggedIn={this.state.loggedIn}/>
       </nav>  

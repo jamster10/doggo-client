@@ -1,0 +1,19 @@
+.intro-container{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 25%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 350px;
+  z-index: 10;
+  background-color: rgba(173, 216, 230, .8);
+  border: 1px solid black;
+  text-align: center;
+  padding: 20px;
+}
+
+.intro-logo-img{
+  height: 40px;
+
+}
