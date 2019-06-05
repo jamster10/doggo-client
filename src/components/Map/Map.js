@@ -8,20 +8,7 @@ const dogRouteOptions =['Bars', 'Parks', 'Hotels', 'Groomers', 'Kennels', 'Vet']
 
 class Map extends React.Component {
  
-  state={
-    'origin-input': "",
-    'destination-input': "",
-    checkboxes: dogRouteOptions.reduce(
-      (options, option) => ({
-        ...options,
-        [option]: false
-      }),
-      {}
-    ),
-    searchRange: 5,
-  }
-
-  constructor(props){
+   constructor(props){
     super(props)
     this.autocomplete = null
   }
@@ -74,6 +61,7 @@ class Map extends React.Component {
   }
 //make btn call new prototyped function, only clickable when response not null
   initMap = () => {
+
      const map = new window.google.maps.Map(document.getElementById('map'), {
       streetViewControl: false,
       mapTypeId: window.google.maps.MapTypeId.ROADMAP,
@@ -81,11 +69,11 @@ class Map extends React.Component {
       center: {lat: this.props.location.lat, lng: this.props.location.lon},
       zoom: 13
     });
-    this.autocomplete = new AutocompleteDirectionsHandler(map, RouteBoxerInit(), this.handleMap);
+    window.google.markers = [];
+    this.autocomplete = new AutocompleteDirectionsHandler(map, RouteBoxerInit(), ()=> Object.keys(this.props.selection).filter(key => this.props.selection[key]), this.props.resultsHandler);
     
-    this.autocomplete.distance = this.state.searchRange
+    this.autocomplete.distance = this.props.searchRange
     this.autocomplete.origin.addListener('place_changed', () => {
-      console.log('hellowsdcs')
       const place = this.autocomplete.origin.getPlace()
       this.props.handleOriginAutoComplete(place.name)
     })
@@ -97,20 +85,9 @@ class Map extends React.Component {
   }
 
   render(){  
+    console.log('sdcsdcs')
     return(
-      <>
         <div id="map"></div>
-        {/* <SearchForm 
-          checkboxes={this.state.checkboxes}
-          currentLocation={this.props.location.city} 
-          handleRouteInput={this.handleRouteInputs} 
-          startLocation={this.state["origin-input"]} 
-          endLocation={this.state["destination-input"]}
-          handleCheckboxChange={this.handleCheckboxChange}
-          routeOptions = {dogRouteOptions}
-          /> */}
-      </>
-
     )
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import Map from '../Map/Map'
 import Sidepanel from '../Sidepanel/Sidepanel'
 
-const dogRouteOptions =['Bars', 'Parks', 'Hotels', 'Groomers', 'Kennels', 'Vet'];
+const dogRouteOptions =['Bars', 'Parks', 'Pet Store', 'Lodging', 'Groomers', 'Kennels', 'Vet'];
 
 class Provider extends React.Component{
   
@@ -17,7 +17,14 @@ class Provider extends React.Component{
       {}
     ),
     searchRange: 5,
+    resutls: []
   }
+
+  getCurrentSelection = () => {
+    return Object.keys(this.state.checkboxes).filter(key => this.state.checkboxes[key])
+  }
+  
+  
 
   handleOriginAutoComplete = (value) => {
     this.setState({
@@ -48,11 +55,25 @@ class Provider extends React.Component{
     })
   }
 
-  
- 
+ handleResults = (res) => {
+   console.log(res);
+   
+  const results = res.map(res => ({
+    address: res.formatted_address,
+    icon: res.icon,
+    name: res.name,
+    open_now: res.opening_hours.open_now,
+    photos: [{}],
+    place_id: res.place_id,
+    price_level: res.price_level,
+    rating: res.rating,
+    user_ratings_total: res.user_ratings_total,
+    geometry: {}
+  }))
 
-        
-
+  //  }));
+  //  this.setState({results})
+ }
 
   render(){
 
@@ -72,7 +93,14 @@ class Provider extends React.Component{
           {this.props.error ? this.props.error : ""}
         </Sidepanel>
         <div className="map-container">
-          {this.props.location.city ? <Map location = {this.props.location} handleOriginAutoComplete={this.handleOriginAutoComplete} handleDestinationAutoComplete={this.handleDestinationAutoComplete} /> : <p className="loading-text">Please wait while the map loads</p>} 
+          {this.props.location.city ? <Map 
+          location = {this.props.location} 
+          searchRange = {this.state.searchRange}
+          handleOriginAutoComplete={this.handleOriginAutoComplete} 
+          handleDestinationAutoComplete={this.handleDestinationAutoComplete} 
+          selection = {this.state.checkboxes}
+          resultsHandler = {this.handleResults}
+          /> : <p className="loading-text">Please wait while the map loads</p>} 
         </div>
       </>
 

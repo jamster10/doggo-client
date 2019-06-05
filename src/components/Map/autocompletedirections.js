@@ -1,6 +1,6 @@
+import SearchHandler from './SearchHandler'
 
-
-export default function AutocompleteDirectionsHandler(map, RouteBoxer, mapHandler) {
+export default function AutocompleteDirectionsHandler(map, RouteBoxer, selection, resultsHandler) {
 
   this.distance = 15;
   this.routeBoxer = new RouteBoxer();
@@ -11,11 +11,12 @@ export default function AutocompleteDirectionsHandler(map, RouteBoxer, mapHandle
   this.directionsService = new window.google.maps.DirectionsService();
   this.directionsDisplay = new window.google.maps.DirectionsRenderer();
   this.directionsDisplay.setMap(map);
-  this.mapHandler = mapHandler;
+  this.selection = selection;
   this.drawn = []; //using to hold all routeboxer bounds
   this.response = null; //using to hold response from server
   this.markers = []; //using to hold all the markers
-
+  this.resultsHandler  = resultsHandler;
+  //this.selections = selections;
 
 
 
@@ -70,16 +71,16 @@ AutocompleteDirectionsHandler.prototype.route = function (map) {
     },
     function (response, status) {
       if (status === 'OK') {
-        // let getRoute = function() {
+
 
         me.directionsDisplay.setDirections(response);
         var path = response.routes[0].overview_path;
         var boxes = me.routeBoxer.box(path, me.distance);
-        //}
 
-        //mapHandler()
+
+     
         clearRouteBoxes(me.drawn);
-        clearMarkers(me.markers, map)
+        clearMarkers(window.google.markers, map)
         drawBoxes(boxes, map, me.drawn);
         //clearMap(me.drawn);
 
@@ -87,21 +88,33 @@ AutocompleteDirectionsHandler.prototype.route = function (map) {
         // Perform a nearby search.
 
 
-        boxes.forEach(bound => {
-          service.textSearch(
-            { query: 'dog', bounds: bound, type: ['bar'] },
-            function (results, status, pagination) {
-              if (status !== 'OK') return;
-              console.log(results)
-              console.log(results[0].photos[0].getUrl())
-              createMarkers(results);
+   SearchHandler(service, boxes, me.selection, me.map, me.resultsHandler)
+            // .then(createMarkers);
+ 
+        
+        
+        //boxes.forEach(bound => {
+          
+        //   service.textSearch(
+        //     { query: 'dog', bounds: bound, type: ['park'] },
+        //     function (results, status, pagination) {
+        //       if (status !== 'OK') return;
+        //       console.log(results)
+        //       console.log(results[0].photos[0].getUrl())
+        //       createMarkers(results);
 
-            });
-        })
+        //     });
+        //  
+        //     }, 1000)
+          
+        // })
 
 
 
-        function createMarkers(places) {
+        function createMarkers(results) {
+
+          results.forEach(places => {
+
           var bounds = new window.google.maps.LatLngBounds();
 
           for (var i = 0, place; place = places[i]; i++) {
@@ -124,6 +137,7 @@ AutocompleteDirectionsHandler.prototype.route = function (map) {
             console.log(me.markers)
           }
           map.fitBounds(bounds);
+        })
         }
 
 
@@ -155,18 +169,18 @@ function drawBoxes(boxes, map, boxpolys) {
 
 
 
-
+//After search clean up
 
 function clearRouteBoxes(boxpolys) {
   boxpolys.forEach(item => item.setMap(null))
 
 }
-
-
 function clearMarkers(markers) {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(null);
   }
   markers.length = [];
 }
+
+//
 

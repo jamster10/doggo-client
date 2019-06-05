@@ -4,11 +4,9 @@ import './SearchForm.css'
 
 const SearchForm = ({searchSettings}) => {
   let {currentCity, startLocation, endLocation, handleRouteInput, checkboxes, handleCheckboxChange, routeOptions} = searchSettings;
-  console.log(startLocation)
 
   const createCheckbox = (option) => {
     return <Checkbox key={option} label={option} isSelected={checkboxes[option]} onCheckboxChange={handleCheckboxChange}/>
-  
   }
   const createCheckboxes = () => routeOptions.map(createCheckbox);
 

@@ -27,13 +27,16 @@ class App extends Component {
   getLocation = () => {
     return fetch('https://geoip-db.com/json/')
     .then(res=>res.json())
-    .then(loc => this.setState({
+    .then(loc => {
+      if(!loc.city) return Promise.reject({message: 'no city provided'})
+      this.setState({
       location: {
         lat: loc.latitude,
         lon: loc.longitude,
         city: loc.city,
-      }, 
-    }))
+        }, 
+      })
+    })
     .catch(e => {
       const fix = () => {
         this.setState({location: { 
@@ -43,7 +46,7 @@ class App extends Component {
       }})
     }
       this.errorHandler({
-        message: "There was a problem getting your location. Using default. Check console for more information."
+        message: "There was a problem getting your current location. Using default."
         }, fix );
     })
   }
