@@ -5,13 +5,9 @@ const ResultItem = ({result}) => {
     result.open_now ? <span className="result-open-now">Currently Open: Yes</span> : <span className="result-open-now">Currently Open: No</span>
   return (
       <div className="info-box">
-        <span className="result-name">{result.name}</span>
-        <br/>
-        <span className="result-address">{result.address}</span>
-        <br/>
+        <h3 className="result-name">{result.name}</h3>
+        <p className="result-address">{result.address}</p>
         {open}
-        <br/>
-        <span>{result.user_ratings_total}</span>
       </div>
     )
 

@@ -4,9 +4,40 @@
   padding-top: 10px;
   list-style: none;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
-.save-button{
-  
+.results-section > ul {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.result-btn-container{
+  margin-right: 10px;
+  text-align: center;
+  width: 100px;
+}
+
+.info-box{
+  width: 390px;
+}
+
+.result-btns{
+  margin-bottom: 30px;
+}
+
+.result-name{
+  margin: 0px;
+  margin-bottom: 10px;
+}
+
+.result-address{
+  margin: 0px;
+  margin-bottom: 10px;
+}
+
+.rating{
+  font-size: 13px;
+}
+.rating-count{
+  font-size: 10px;
 }

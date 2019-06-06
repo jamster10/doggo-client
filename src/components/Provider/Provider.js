@@ -70,7 +70,7 @@ class Provider extends React.Component{
     address: res.formatted_address,
     icon: res.icon,
     name: res.name,
-    open_now: res.hasOwnProperty(opening_hours) .open_now  'n/a',
+    open_now: res.hasOwnProperty('opening_hours') ? res.opening_hours.open_now :  undefined,
     photo: res.photos[0].getUrl() || 'none',
     place_id: res.place_id,
     price_level: res.price_level || 'n/a',

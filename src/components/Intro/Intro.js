@@ -3,20 +3,21 @@ import './Intro.css'
 
 export default class IntroModal extends React.Component {
   state ={
-    view: 1
+    view: 0
   }
   
 
   handleNext = (e) => {
     e.preventDefault();
+    if (this.state.view === 3){
+      this.props.disableModal();
+    }
     this.setState({view: this.state.view + 1})
 
   }
 
   handlePrevious = (e) => {
-    console.log('ddd')
     e.preventDefault();
-
     this.setState({view: this.state.view - 1})
   }
 
@@ -65,8 +66,8 @@ export default class IntroModal extends React.Component {
 
         {this.views[messages[this.state.view]]}
         <div className="button-controls">
-          <button className="modal-control" disabled={this.state.view === 0} onClick={this.handlePrevious}>Previous</button> 
-          <button className="modal-control"  onClick={this.handleNext}>Next</button> 
+          {this.state.view === 0 ? "" : <button className="modal-control"  onClick={this.handlePrevious}>Previous</button>}
+          <button className="modal-control"  onClick={this.handleNext}>{this.state.view === 3 ? 'Let\'s Go!' : 'Next'}</button> 
         </div>
       </div>
     )
