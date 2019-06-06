@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, NavLink } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './Sidepanel.css';
 
 import SearchView from '../SearchView/SearchView';
@@ -12,7 +12,7 @@ import TokenService from '../../Services/token-service';
 
 
 
-const Sidepanel = ({children, searchSettings, errorHandler, enableSearch, results}) => {
+const Sidepanel = ({children, searchSettings, errorHandler, enableSearch, results, beginSearch}) => {
   const userButtons = <div className="logged-in-controls"><button className="user-buttons">Search</button><button className="user-buttons">My Routes</button><button className="user-buttons">My Places</button></div>
 
   const headerBar = children ? <p className="error-message">{children}</p> : !TokenService.hasAuthToken() ? <p className="welcome-text"><b>Welcome to DogGo!</b></p> : userButtons;
@@ -31,7 +31,7 @@ const Sidepanel = ({children, searchSettings, errorHandler, enableSearch, result
       <Route
         exact
         path={'/'}
-        render={() => <SearchView searchSettings={searchSettings} enableSearch={enableSearch} results={results} />}
+        render={() => <SearchView searchSettings={searchSettings} enableSearch={enableSearch} beginSearch={beginSearch} results={results} />}
       />
       <Route
         exact

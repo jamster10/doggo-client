@@ -1,10 +1,11 @@
 import React from 'react';
 import ResultItem from './ResultItem';
+import './Results.css'
 
 const ResultList = ({results}) => {
 
   const createdList = results.map(result => (
-    <li key={result.placeId}>
+    <li className="single-result" key={result.placeId}>
       <ResultItem result={result}/>
       <button className="save-button" >Save</button>
     </li>

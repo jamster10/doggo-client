@@ -9,7 +9,6 @@ const Navbar = ({ loggedIn }) => {
   const clearAuth = () => {
     TokenService.clearToken();
   }
-  console.log(TokenService.hasAuthToken)
 
  const userControls = TokenService.hasAuthToken() ? <div className= "user-controls"><button>My Routes</button>|<button onClick={clearAuth}>Logout</button></div> : <div className= "user-controls"><button><NavLink to="/login">Login</NavLink></button>|<button><NavLink to="/register">Sign Up!</NavLink></button></div>;
   

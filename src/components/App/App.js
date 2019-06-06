@@ -4,26 +4,31 @@ import Navbar from '../Navbar/Navbar';
 import Provider from '../Provider/Provider';
 import Modal from '../Modal/Modal.js';
 import Intro from '../Intro/Intro'
+import TokenService from '../../Services/token-service'
 
 class App extends Component {
   state={
-    loggedIn: false,
     location:{
       lat: 38.8,
       lon: 104.8,
       city: null,
     },
-    boxes: null,
+    showModal:true,
     error: null
-  }
 
-
-  handleBoxes =(boxes) => {
-    this.setState({boxes});
   }
 
   componentDidMount(){
+    this.checkLogin()
     this.getLocation()
+  }
+
+  checkLogin = () => {
+    if(TokenService.hasAuthToken()) this.setState({showModal: false})
+  }
+
+  disableModal = () => {
+    this.setState({showModal: false})
   }
 
   getLocation = () => {
@@ -53,7 +58,7 @@ class App extends Component {
     })
   }
 
-  errorHandler =(error, recoveryStateFix) => {
+  errorHandler = (error, recoveryStateFix) => {
     console.log('im here')
     this.setState({
       error: error.message,
@@ -68,9 +73,7 @@ class App extends Component {
   render() {
     return (
       <>
-        {/* <Modal>
-          <Intro/>
-        </Modal> */}
+        { this.state.showModal ? <Modal> <Intro disableModal={this.disableModal}/>  </Modal> :  ""} 
       <nav>
       <Navbar loggedIn={this.state.loggedIn}/>
       </nav>  
@@ -80,7 +83,7 @@ class App extends Component {
           location={this.state.location}
           loggedIn ={this.state.loggedIn}
           error={this.state.error}
-          />
+        />
       </main>
       </>
     );

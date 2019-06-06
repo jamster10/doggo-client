@@ -7,13 +7,56 @@
   margin-right: auto;
   width: 350px;
   z-index: 10;
-  background-color: rgba(173, 216, 230, .8);
+  background-color: rgb(173, 216, 230);
   border: 1px solid black;
+  border-radius: 5px;
   text-align: center;
   padding: 20px;
+  height: 210px;
+
 }
 
+.welcome-text{
+  padding: 0px;
+  margin-top: 5px;
+}
 .intro-logo-img{
   height: 40px;
+}
 
+.button-controls{ 
+  position: absolute;
+  bottom: -5px;
+  text-align:center;
+  margin: auto;
+  margin-bottom: 30px;
+  width: 200px;
+  left: 100px;
+}
+
+.modal-control{
+  background-color: transparent;
+  padding: 10px;
+  text-align: center;
+  margin-right:15px;
+  box-shadow: 2px 2px grey;
+  border: 1px solid black;
+}
+
+.modal-control:hover{
+  box-shadow: none;
+}
+
+.close-btn{
+  position: absolute;
+  background-color: transparent;
+  border: 1px solid black;
+  right: 10px;
+  top: 10px; 
+}
+
+@media screen and (min-width: 700px){
+  .intro-container{
+    background-color: rgba(173, 216, 230, .8);
+  }
 }

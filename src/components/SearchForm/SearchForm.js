@@ -2,7 +2,7 @@ import React from 'react';
 import Checkbox from './Checkbox'
 import './SearchForm.css'
 
-const SearchForm = ({searchSettings, enableSearch}) => {
+const SearchForm = ({searchSettings, enableSearch, beginSearch}) => {
   let {currentCity, startLocation, endLocation, handleRouteInput, checkboxes, handleCheckboxChange, routeOptions} = searchSettings;
 
   const createCheckbox = (option) => {
@@ -22,7 +22,7 @@ const SearchForm = ({searchSettings, enableSearch}) => {
         <label htmlFor="destination-input">End:</label>
         <input className="query-input" type="text" placeholder='Zion National Park' name="destination-input" id="destination-input" value={endLocation} onChange={handleRouteInput}/>
       </div>
-      <button onClick={enableSearch}>Search!</button>
+      <button className="search-btn" type="button" onClick={beginSearch}>Search!</button>
     </div>
     <fieldset>
       <legend>Searching for dog friendly:</legend>

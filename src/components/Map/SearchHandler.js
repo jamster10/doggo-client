@@ -23,7 +23,6 @@ const search = (service, query, bounds, type) => {
 
 
 export default function  searchHandler(service, routeBounds, searchSelections, map, resultsHandler){
-  const queryPromises = [];
   const boundaryCount = routeBounds.length;
 
   const queryTerms = {
@@ -61,8 +60,7 @@ export default function  searchHandler(service, routeBounds, searchSelections, m
         if(!routeBounds[currentBound].contains(place.geometry.location)) continue;
 
         tempResultsContainer.push(place)
-       console.log(tempResultsContainer)
-        //console.log(place.location)
+
         var image = {
           url: place.icon,
           size: new window.google.maps.Size(71, 71),

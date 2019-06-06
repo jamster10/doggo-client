@@ -1,18 +1,23 @@
 import React from 'react';
 import './Map.css';
-import SearchForm from '../SearchForm/SearchForm';
 import RouteBoxerInit from './Boxer'
 import AutocompleteDirectionsHandler from './autocompletedirections'
-
-const dogRouteOptions =['Bars', 'Parks', 'Hotels', 'Groomers', 'Kennels', 'Vet'];
 
 class Map extends React.Component {
  
    constructor(props){
     super(props)
     this.autocomplete = null
+    this.state = {
+      loaded: false
+    }
   }
 
+  beginSearch = () => {
+    if(this.autocomplete){
+      this.autocomplete.beginSearch()
+    }
+  }
 
   handleOriginAutoComplete = (value) => {
     this.setState({
@@ -29,7 +34,7 @@ class Map extends React.Component {
   componentDidMount(){
     this.setup()
   }
-   setup =  () => {
+   setup = () => {
      window.initMap = () => {
        this.initMap();
      }
@@ -54,11 +59,6 @@ class Map extends React.Component {
     })
   }
 
-  
-  handleMap = (func) => {
-    let boxes = func();
-
-  }
 //make btn call new prototyped function, only clickable when response not null
   initMap = () => {
 
@@ -82,10 +82,10 @@ class Map extends React.Component {
       const place = this.autocomplete.destination.getPlace()
       this.props.handleDestinationAutoComplete(place.name)
     })
+    this.setState({loaded: true})
   }
 
   render(){  
-    console.log('sdcsdcs')
     return(
         <div id="map"></div>
     )

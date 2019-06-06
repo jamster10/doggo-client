@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Intro.css'
 
 export default class IntroModal extends React.Component {
@@ -24,7 +24,7 @@ export default class IntroModal extends React.Component {
   
   welcome = (
     <div>
-    <h2>Welcome to Doggo!</h2>
+    <h2 className="welcome-text">Welcome to Doggo!</h2>
     <p>DogGo helps you plan a route for you and your best bud!</p>
   </div>
   )
@@ -38,14 +38,13 @@ export default class IntroModal extends React.Component {
   
   howSearch = (
   <div>
-    <p>Select the options you want to search for</p>
-    <p>Then select an origin and destination</p>
+    <p>Select the options you want to search for, as well as an origin and destination.</p>
   </div>
   )
   
   whyLogin = (
     <div>
-    <p>Login to save places to view later</p>
+    <p>Login to save places to view later!</p>
     {/* <img>alt instruction images</img> */}
   </div>
   )
@@ -61,13 +60,14 @@ export default class IntroModal extends React.Component {
 
     return (
       <div className="intro-container">
+        <button type="button" className="close-btn" onClick={this.props.disableModal}>x</button>
         <img className="intro-logo-img" src={require('../../img/logo.svg')} alt='dogGo logo'/>
 
         {this.views[messages[this.state.view]]}
-       
-        <button className="modal-control" disabled={this.state.view === 0} onClick={this.handlePrevious}>Previous</button> 
-        <button className="modal-control"  onClick={this.handleNext}>Next</button> 
-       
+        <div className="button-controls">
+          <button className="modal-control" disabled={this.state.view === 0} onClick={this.handlePrevious}>Previous</button> 
+          <button className="modal-control"  onClick={this.handleNext}>Next</button> 
+        </div>
       </div>
     )
   }

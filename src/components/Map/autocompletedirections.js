@@ -18,7 +18,7 @@ export default function AutocompleteDirectionsHandler(map, RouteBoxer, selection
   this.resultsHandler  = resultsHandler;
   this.enableSearch = enableSearch;
   this.preventSearch = preventSearch;
-  this.beginSearch = null
+  this.beginSearch =   this.route.bind(this, this.map);
   //this.selections = selections;
 
 
@@ -56,16 +56,14 @@ AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function (
     } else {
       me.destinationPlaceId = place.place_id;
     }
-    me.route(me.map);
+  
   });
 };
 
 AutocompleteDirectionsHandler.prototype.route = function (map) {
-  console.log(this)
 
-  if ( (!this.originPlaceId || !this.destinationPlaceId) || !this.enableSearch) {
-    console.log(!this.originPlaceId, !this.destinationPlaceId)
-    console.log(!this.enableSearch)
+  if(!this.originPlaceId || !this.destinationPlaceId) {
+
     return
   }
   this.preventSearch();
@@ -97,67 +95,12 @@ AutocompleteDirectionsHandler.prototype.route = function (map) {
 
 
    SearchHandler(service, boxes, me.selection, me.map, me.resultsHandler)
-            // .then(createMarkers);
- 
-        
-        
-        //boxes.forEach(bound => {
-          
-        //   service.textSearch(
-        //     { query: 'dog', bounds: bound, type: ['park'] },
-        //     function (results, status, pagination) {
-        //       if (status !== 'OK') return;
-        //       console.log(results)
-        //       console.log(results[0].photos[0].getUrl())
-        //       createMarkers(results);
 
-        //     });
-        //  
-        //     }, 1000)
-          
-        // })
-
-
-
-        // function createMarkers(results) {
-
-        //   results.forEach(places => {
-
-        //   var bounds = new window.google.maps.LatLngBounds();
-
-        //   for (var i = 0, place; place = places[i]; i++) {
-        //     var image = {
-        //       url: place.icon,
-        //       size: new window.google.maps.Size(71, 71),
-        //       origin: new window.google.maps.Point(0, 0),
-        //       anchor: new window.google.maps.Point(17, 34),
-        //       scaledSize: new window.google.maps.Size(25, 25)
-        //     };
-
-        //     var marker = new window.google.maps.Marker({
-        //       map: map,
-        //       icon: image,
-        //       title: place.name,
-        //       position: place.geometry.location
-        //     });
-        //     me.markers.push(marker)
-        //     bounds.extend(place.geometry.location);
-        //     console.log(me.markers)
-        //   }
-        //   map.fitBounds(bounds);
-        // })
-        // }
-
-
-        // return boxes;
-        // }
-        // me.mapHandler(getRoute)
-        // console.log(me);
 
       } else {
         window.alert('Directions request failed due to ' + status);
       }
-    }.bind(this));
+    })
 };
 
 function drawBoxes(boxes, map, boxpolys) {
@@ -190,5 +133,5 @@ function clearMarkers(markers) {
   markers.length = [];
 }
 
-//
+
 

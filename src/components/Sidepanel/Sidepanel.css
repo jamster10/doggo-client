@@ -2,7 +2,7 @@
   overflow-y: auto;
   background-color: rgb(235, 245, 253);
   border-left: 1px solid black;
-  height: 92vh;
+  height: 300px;
   width: 100%;
   
 }
@@ -44,5 +44,6 @@
 @media screen and (min-width: 700px){
   .Sidepanel{
     width: 40%;
+    height: 93vh;
   }
 }

@@ -1,0 +1,12 @@
+.single-result{
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.save-button{
+  
+}

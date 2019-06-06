@@ -5,7 +5,10 @@ import Sidepanel from '../Sidepanel/Sidepanel'
 const dogRouteOptions =['Bars', 'Parks', 'Pet Store', 'Lodging', 'Groomers', 'Kennels', 'Vet'];
 
 class Provider extends React.Component{
-  
+  constructor(props){
+    super(props)
+    this.mapComponent = React.createRef()
+  }
   state = {
     'origin-input': "",
     'destination-input': "",
@@ -67,15 +70,20 @@ class Provider extends React.Component{
     address: res.formatted_address,
     icon: res.icon,
     name: res.name,
-    open_now: res.opening_hours.open_now,
-    photo: res.photos[0].getUrl(),
+    open_now: res.hasOwnProperty(opening_hours) .open_now  'n/a',
+    photo: res.photos[0].getUrl() || 'none',
     place_id: res.place_id,
-    price_level: res.price_level,
+    price_level: res.price_level || 'n/a',
     rating: res.rating,
     user_ratings_total: res.user_ratings_total,
     location: res.geometry.location
   }))
   this.setState({results: [...this.state.results, ...results]})
+ }
+
+ handleSearch = () => {
+   this.setState({results: []})
+   this.mapComponent.current.beginSearch()
  }
 
   render(){
@@ -98,12 +106,13 @@ class Provider extends React.Component{
         errorHandler={this.props.errorHandler} 
         enableSearch={this.handleEnableSearch}
         results = {this.state.results}
+        beginSearch={this.handleSearch}
         >
         {this.props.error ? this.props.error : ""}
-
         </Sidepanel>
         <div className="map-container">
           {this.props.location.city ? <Map 
+          ref={this.mapComponent}
           enableSearch={this.state.enableSearch}
           preventSearch={this.handleDisableSearch}
           location = {this.props.location} 
