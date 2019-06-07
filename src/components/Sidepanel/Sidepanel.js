@@ -12,10 +12,10 @@ import TokenService from '../../Services/token-service';
 
 
 
-const Sidepanel = ({children, searchSettings, errorHandler, enableSearch, results, beginSearch}) => {
-  const userButtons = <div className="logged-in-controls"><button className="user-buttons">Search</button><button className="user-buttons">My Routes</button><button className="user-buttons">My Places</button></div>
+const Sidepanel = ({children, searchSettings, errorHandler, enableSearch, results, beginSearch, handleLogin, savePlace}) => {
+  // const userButtons = <div className="logged-in-controls"><button className="user-buttons">Search</button><button className="user-buttons">My Routes</button><button className="user-buttons">My Places</button></div>
 
-  const headerBar = children ? <p className="error-message">{children}</p> : !TokenService.hasAuthToken() ? <p className="welcome-text"><b>Welcome to DogGo!</b></p> : userButtons;
+  const headerBar = children ? <p className="error-message">{children}</p> : <p className="welcome-text-side"><b>Welcome to DogGo!</b></p>
 
   
 
@@ -31,12 +31,12 @@ const Sidepanel = ({children, searchSettings, errorHandler, enableSearch, result
       <Route
         exact
         path={'/'}
-        render={() => <SearchView searchSettings={searchSettings} enableSearch={enableSearch} beginSearch={beginSearch} results={results} />}
+        render={() => <SearchView errorHandler={errorHandler} searchSettings={searchSettings} enableSearch={enableSearch} savePlace={savePlace} beginSearch={beginSearch} results={results} />}
       />
       <Route
         exact
         path={'/login'}
-        render={() => <Login errorHandler={errorHandler}/>}
+        render={(routeProps) => <Login  routeProps={routeProps} errorHandler={errorHandler} handleLogin={handleLogin}/>}
       />
       <Route
         exact

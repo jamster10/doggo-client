@@ -70,7 +70,7 @@ class Map extends React.Component {
       zoom: 13
     });
     window.google.markers = [];
-    this.autocomplete = new AutocompleteDirectionsHandler(map, RouteBoxerInit(), ()=> Object.keys(this.props.selection).filter(key => this.props.selection[key]), this.props.resultsHandler, this.props.enableSearch, this.props.preventSearch);
+    this.autocomplete = new AutocompleteDirectionsHandler(map, RouteBoxerInit(), ()=> Object.keys(this.props.selection).filter(key => this.props.selection[key]), this.props.resultsHandler, this.props.enableSearch, this.props.preventSearch, this.props.errorHandler);
     
     this.autocomplete.distance = this.props.searchRange
     this.autocomplete.origin.addListener('place_changed', () => {

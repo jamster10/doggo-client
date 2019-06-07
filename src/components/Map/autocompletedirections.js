@@ -1,6 +1,6 @@
 import SearchHandler from './SearchHandler'
 
-export default function AutocompleteDirectionsHandler(map, RouteBoxer, selection, resultsHandler, enableSearch, preventSearch) {
+export default function AutocompleteDirectionsHandler(map, RouteBoxer, selection, resultsHandler, enableSearch, preventSearch, errorHandler) {
 
   this.distance = 15;
   this.routeBoxer = new RouteBoxer();
@@ -19,6 +19,8 @@ export default function AutocompleteDirectionsHandler(map, RouteBoxer, selection
   this.enableSearch = enableSearch;
   this.preventSearch = preventSearch;
   this.beginSearch =   this.route.bind(this, this.map);
+
+  this.errorHandler = errorHandler;
   //this.selections = selections;
 
 
@@ -63,7 +65,7 @@ AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function (
 AutocompleteDirectionsHandler.prototype.route = function (map) {
 
   if(!this.originPlaceId || !this.destinationPlaceId) {
-
+    this.errorHandler( {message: 'Please add an origin and destination'} )
     return
   }
   this.preventSearch();

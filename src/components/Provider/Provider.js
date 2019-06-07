@@ -64,19 +64,19 @@ class Provider extends React.Component{
   }
 
  handleResults = (res) => {
-   console.log(res);
    
   const results = res.map(res => ({
-    address: res.formatted_address,
-    icon: res.icon,
-    name: res.name,
-    open_now: res.hasOwnProperty('opening_hours') ? res.opening_hours.open_now :  undefined,
-    photo: res.photos[0].getUrl() || 'none',
-    place_id: res.place_id,
-    price_level: res.price_level || 'n/a',
-    rating: res.rating,
-    user_ratings_total: res.user_ratings_total,
-    location: res.geometry.location
+    address: res.formatted_address, //text
+    icon: res.icon, //url -text
+    name: res.name, //text
+    open_now: res.hasOwnProperty('opening_hours') ? res.opening_hours.open_now :  undefined, 
+    //photo: res.photos[0].getUrl() || 'none',
+    place_id: res.place_id, //unique
+    price_level: res.price_level || 'n/a', //text
+    rating: res.rating, //number
+    user_ratings_total: res.user_ratings_total, //number
+    location: res.geometry.location,
+    saved: false //bool
   }))
   this.setState({results: [...this.state.results, ...results]})
  }
@@ -84,6 +84,11 @@ class Provider extends React.Component{
  handleSearch = () => {
    this.setState({results: []})
    this.mapComponent.current.beginSearch()
+ }
+
+ toggleSavePlace = (id) => {
+   const result = this.state.results.find(item => item.place_id === id)
+   result.saved = true;
  }
 
   render(){
@@ -107,6 +112,8 @@ class Provider extends React.Component{
         enableSearch={this.handleEnableSearch}
         results = {this.state.results}
         beginSearch={this.handleSearch}
+        handleLogin={this.props.handleLogin}
+        savePlace={this.toggleSavePlace}
         >
         {this.props.error ? this.props.error : ""}
         </Sidepanel>
@@ -121,6 +128,7 @@ class Provider extends React.Component{
           handleDestinationAutoComplete={this.handleDestinationAutoComplete} 
           selection = {this.state.checkboxes}
           resultsHandler = {this.handleResults}
+          errorHandler={this.props.errorHandler}
           /> : <p className="loading-text">Please wait while the map loads</p>} 
         </div>
       </>

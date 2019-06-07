@@ -31,7 +31,6 @@ const AuthService = {
       body: JSON.stringify(user)
     })
     .then(res => {
-      console.log(res.ok)
       if (!res.ok) {
         return Promise.reject(res.json())
        }

@@ -24,7 +24,15 @@ class App extends Component {
   }
 
   checkLogin = () => {
-    if(TokenService.hasAuthToken()) this.setState({showModal: false})
+    if(TokenService.hasAuthToken()) this.setState({showModal: false, loggedIn: true})
+  }
+
+  handleLogin = () => {
+    this.setState({loggedIn: true})
+  }
+
+  handleLogout = () => {
+    this.setState({loggedIn: false})
   }
 
   disableModal = () => {
@@ -42,6 +50,7 @@ class App extends Component {
         lon: loc.lon,
         city: loc.city,
         }, 
+        loggedIn: false
       })
     })
     .catch(e => {
@@ -75,10 +84,11 @@ class App extends Component {
       <>
         { this.state.showModal ? <Modal> <Intro disableModal={this.disableModal}/>  </Modal> :  ""} 
       <nav>
-      <Navbar loggedIn={this.state.loggedIn}/>
+      <Navbar loggedIn={this.state.loggedIn} handleLogout={this.handleLogout}/>
       </nav>  
       <main>
         <Provider
+          handleLogin={this.handleLogin}
           errorHandler={this.errorHandler}
           location={this.state.location}
           loggedIn ={this.state.loggedIn}

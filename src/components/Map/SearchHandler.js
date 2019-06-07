@@ -78,7 +78,6 @@ export default function  searchHandler(service, routeBounds, searchSelections, m
         window.google.markers.push(marker)
         bounds.extend(place.geometry.location);
       }
-      console.log(tempResultsContainer)
       if(tempResultsContainer.length !== 0) resultsHandler(tempResultsContainer)
       })
       .catch(console.log)

@@ -2,8 +2,10 @@ import React from 'react';
 import './Login.css'
 import AuthService from '../../Services/authentication-api'
 
-const Login = ({errorHandler}) =>  {
-  
+
+
+const Login = ({errorHandler, handleLogin, ...props}) =>  {
+  console.log(props)
   const handleSubmit = (e) => {
     e.preventDefault();
     const { username, password } = e.target;
@@ -15,9 +17,12 @@ const Login = ({errorHandler}) =>  {
       .then(res =>{
         if (res.message){ 
           return Promise.reject(res) 
+
         }
         username.value = "";
         password.value = "";
+        handleLogin()
+        props.routeProps.history.push('/')
       })
       .catch(errorHandler);
     }

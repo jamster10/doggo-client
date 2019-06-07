@@ -4,13 +4,14 @@ import { NavLink } from 'react-router-dom'
 import  TokenService from '../../Services/token-service'
 
 
-const Navbar = ({ loggedIn }) => {
+const Navbar = ({ loggedIn, handleLogout }) => {
 
   const clearAuth = () => {
     TokenService.clearToken();
+    handleLogout();
   }
 
- const userControls = TokenService.hasAuthToken() ? <div className= "user-controls"><button>My Routes</button>|<button onClick={clearAuth}>Logout</button></div> : <div className= "user-controls"><button><NavLink to="/login">Login</NavLink></button>|<button><NavLink to="/register">Sign Up!</NavLink></button></div>;
+ const userControls = loggedIn ? <div className= "user-controls"><button className="nav-search-btn"><NavLink to="/">Search!</NavLink></button>|<button>My Places</button>|<button onClick={clearAuth}>Logout</button></div> : <div className= "user-controls"><button className="nav-search-btn"><NavLink to="/">Search!</NavLink></button>|<button><NavLink to="/login">Login</NavLink></button>|<button><NavLink to="/register">Sign Up!</NavLink></button></div>;
   
   return (
     <nav className='Navbar'>
