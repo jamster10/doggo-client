@@ -11,7 +11,7 @@ const Navbar = ({ loggedIn, handleLogout }) => {
     handleLogout();
   }
 
- const userControls = loggedIn ? <div className= "user-controls"><button className="nav-search-btn"><NavLink to="/">Search!</NavLink></button>|<button>My Places</button>|<button onClick={clearAuth}>Logout</button></div> : <div className= "user-controls"><button className="nav-search-btn"><NavLink to="/">Search!</NavLink></button>|<button><NavLink to="/login">Login</NavLink></button>|<button><NavLink to="/register">Sign Up!</NavLink></button></div>;
+ const userControls = loggedIn ? <div className= "user-controls"><button className="nav-search-btn"><NavLink to="/">Search!</NavLink></button>|<button><NavLink to="/myplaces">My Places</NavLink></button>|<button onClick={clearAuth}>Logout</button></div> : <div className= "user-controls"><button className="nav-search-btn"><NavLink to="/">Search!</NavLink></button>|<button><NavLink to="/login">Login</NavLink></button>|<button><NavLink to="/register">Sign Up!</NavLink></button></div>;
   
   return (
     <nav className='Navbar'>

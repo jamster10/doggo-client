@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Checkbox from './Checkbox'
 import './SearchForm.css'
 
-const SearchForm = ({searchSettings, enableSearch, beginSearch}) => {
+
+const SearchForm = ({handleListeners, searchSettings, enableSearch, beginSearch}) => {
   let {currentCity, startLocation, endLocation, handleRouteInput, checkboxes, handleCheckboxChange, routeOptions} = searchSettings;
+  
+    useEffect( () => {
+      setTimeout(() =>handleListeners(), 5000);
+    })
+  // handleListeners();
 
   const createCheckbox = (option) => {
     return <Checkbox key={option} label={option} isSelected={checkboxes[option]} onCheckboxChange={handleCheckboxChange}/>

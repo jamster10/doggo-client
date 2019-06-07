@@ -4,7 +4,7 @@ import AuthService from '../../Services/authentication-api'
 
 
 
-const Login = ({errorHandler, handleLogin, ...props}) =>  {
+const Login = ({errorHandler, handleLogin, getMyPlaces,  ...props}) =>  {
   console.log(props)
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,6 +22,7 @@ const Login = ({errorHandler, handleLogin, ...props}) =>  {
         username.value = "";
         password.value = "";
         handleLogin()
+        getMyPlaces()
         props.routeProps.history.push('/')
       })
       .catch(errorHandler);

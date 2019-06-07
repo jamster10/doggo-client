@@ -1,6 +1,8 @@
 import React from 'react';
 import Map from '../Map/Map'
 import Sidepanel from '../Sidepanel/Sidepanel'
+import PlacesApiService from '../../Services/places-service'
+import TokenService from '../../Services/token-service'
 
 const dogRouteOptions =['Bars', 'Parks', 'Pet Store', 'Lodging', 'Groomers', 'Kennels', 'Vet'];
 
@@ -21,7 +23,15 @@ class Provider extends React.Component{
     ),
     searchRange: 5,
     results: [],
-    enableSearch: false
+    enableSearch: false,
+    myPlaces: []
+  }
+
+  componentDidMount() {
+    
+    if(TokenService.hasAuthToken()){
+      this.getMyPlaces();
+    }
   }
 
   handleEnableSearch = (e) => {
@@ -73,8 +83,8 @@ class Provider extends React.Component{
     //photo: res.photos[0].getUrl() || 'none',
     place_id: res.place_id, //unique
     price_level: res.price_level || 'n/a', //text
-    rating: res.rating, //number
-    user_ratings_total: res.user_ratings_total, //number
+    rating: res.rating || 2, //number
+    user_ratings_total: res.user_ratings_total || 0, //number
     location: res.geometry.location,
     saved: false //bool
   }))
@@ -82,13 +92,27 @@ class Provider extends React.Component{
  }
 
  handleSearch = () => {
+   console.log(this.mapComponent)
    this.setState({results: []})
    this.mapComponent.current.beginSearch()
+
+   // console.log(this.mapComponent)
+ }
+
+ handleListeners = () => {
+   console.log(this.mapComponent)
+   this.mapComponent.current.setUpListeners();
  }
 
  toggleSavePlace = (id) => {
    const result = this.state.results.find(item => item.place_id === id)
    result.saved = true;
+ }
+
+ getMyPlaces = () => {
+   console.log('i run')
+  PlacesApiService.getPlaces()
+    .then(myPlaces => {this.setState({myPlaces}, console.log(myPlaces)) })
  }
 
   render(){
@@ -106,6 +130,7 @@ class Provider extends React.Component{
     return(
       <>  
         <Sidepanel 
+        handleListeners={this.handleListeners}
         loggedIn={this.props.loggedIn} 
         searchSettings = {searchSettings} 
         errorHandler={this.props.errorHandler} 
@@ -114,6 +139,8 @@ class Provider extends React.Component{
         beginSearch={this.handleSearch}
         handleLogin={this.props.handleLogin}
         savePlace={this.toggleSavePlace}
+        getMyPlaces={this.getMyPlaces}
+        myPlaces={this.state.myPlaces}
         >
         {this.props.error ? this.props.error : ""}
         </Sidepanel>

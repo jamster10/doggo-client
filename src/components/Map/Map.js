@@ -18,6 +18,18 @@ class Map extends React.Component {
       this.autocomplete.beginSearch()
     }
   }
+  setUpListeners = () => {
+    
+    this.autocomplete.origin.addListener('place_changed', () => {
+      const place = this.autocomplete.origin.getPlace()
+      this.props.handleOriginAutoComplete(place.name)
+    })
+
+    this.autocomplete.destination.addListener('place_changed', () => {
+      const place = this.autocomplete.destination.getPlace()
+      this.props.handleDestinationAutoComplete(place.name)
+    })
+  }
 
   handleOriginAutoComplete = (value) => {
     this.setState({
@@ -73,15 +85,16 @@ class Map extends React.Component {
     this.autocomplete = new AutocompleteDirectionsHandler(map, RouteBoxerInit(), ()=> Object.keys(this.props.selection).filter(key => this.props.selection[key]), this.props.resultsHandler, this.props.enableSearch, this.props.preventSearch, this.props.errorHandler);
     
     this.autocomplete.distance = this.props.searchRange
-    this.autocomplete.origin.addListener('place_changed', () => {
-      const place = this.autocomplete.origin.getPlace()
-      this.props.handleOriginAutoComplete(place.name)
-    })
+    // this.autocomplete.origin.addListener('place_changed', () => {
+    //   const place = this.autocomplete.origin.getPlace()
+    //   this.props.handleOriginAutoComplete(place.name)
+    // })
+    this.setUpListeners()
  
-    this.autocomplete.destination.addListener('place_changed', () => {
-      const place = this.autocomplete.destination.getPlace()
-      this.props.handleDestinationAutoComplete(place.name)
-    })
+    // this.autocomplete.destination.addListener('place_changed', () => {
+    //   const place = this.autocomplete.destination.getPlace()
+    //   this.props.handleDestinationAutoComplete(place.name)
+    // })
     this.setState({loaded: true})
   }
 

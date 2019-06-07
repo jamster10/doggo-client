@@ -14,8 +14,8 @@ class App extends Component {
       city: null,
     },
     showModal:true,
-    error: null
-
+    error: null,
+    loggedIn: false
   }
 
   componentDidMount(){
@@ -49,8 +49,8 @@ class App extends Component {
         lat: loc.lat,
         lon: loc.lon,
         city: loc.city,
-        }, 
-        loggedIn: false
+        }
+
       })
     })
     .catch(e => {

@@ -32,7 +32,7 @@ const PlaceApiService = {
     .catch(e => e)
   }, 
   savePlace(place) {
-    return fetch(`${config.API_ENDPOINT}/place`, {
+    return fetch(`${config.API_ENDPOINT}/places`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',

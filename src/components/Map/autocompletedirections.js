@@ -19,6 +19,7 @@ export default function AutocompleteDirectionsHandler(map, RouteBoxer, selection
   this.enableSearch = enableSearch;
   this.preventSearch = preventSearch;
   this.beginSearch =   this.route.bind(this, this.map);
+  this.setUpListeners = this.setupPlaceChangedListener.bind(this);
 
   this.errorHandler = errorHandler;
   //this.selections = selections;
@@ -32,14 +33,16 @@ export default function AutocompleteDirectionsHandler(map, RouteBoxer, selection
   this.destination = new window.google.maps.places.Autocomplete(destinationInput);
 
 
-  this.setupPlaceChangedListener(this.origin, 'ORIG');
-  this.setupPlaceChangedListener(this.destination, 'DEST');
+    this.setupPlaceChangedListener(this.origin, 'ORIG');
+    this.setupPlaceChangedListener(this.destination, 'DEST');
+  
 
 }
 
 AutocompleteDirectionsHandler.prototype.drawResults = function () {}
 AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function (
   autocomplete, mode) {
+
   var me = this;
 
   autocomplete.bindTo('bounds', this.map);
