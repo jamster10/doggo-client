@@ -10,7 +10,6 @@ const search = (service, query, bounds, type) => {
   return new Promise ( (resolve, reject) => {
     const options = {query, bounds, type}
     service.textSearch(options, function(results, status, pagination) {
-      console.log(options.query, options.type)
       if(status === 'OK'){
         resolve(results);
       } else {
