@@ -4,7 +4,7 @@ import TokenService from './token-service'
 
 const AuthService = {
   registerUser(user) {
-    console.log(user)
+
     return fetch(config.API_ENDPOINT + '/users/register', {
       method: 'POST',
       headers: {

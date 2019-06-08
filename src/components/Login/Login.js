@@ -5,7 +5,6 @@ import AuthService from '../../Services/authentication-api'
 
 
 const Login = ({errorHandler, handleLogin, getMyPlaces,  ...props}) =>  {
-  console.log(props)
   const handleSubmit = (e) => {
     e.preventDefault();
     const { username, password } = e.target;
@@ -22,7 +21,6 @@ const Login = ({errorHandler, handleLogin, getMyPlaces,  ...props}) =>  {
         username.value = "";
         password.value = "";
         handleLogin()
-        getMyPlaces()
         props.routeProps.history.push('/')
       })
       .catch(errorHandler);
@@ -37,6 +35,7 @@ const Login = ({errorHandler, handleLogin, getMyPlaces,  ...props}) =>  {
     <br/>
     <br/>
     <input type="submit"></input>
+    <h5>login: jamster1, password: password</h5>
   </form>
 }
 

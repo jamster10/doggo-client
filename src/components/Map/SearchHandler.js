@@ -29,7 +29,7 @@ export default function  searchHandler(service, routeBounds, searchSelections, m
     Bars: ['dog', 'bar'],
     Parks: ['dog', 'park'],
     "Pet Store": ['', 'pet_store'],
-    Lodging: ['dog-friendly', 'lodging'],
+    Lodging: ['pet-friendly', 'lodging'],
     Groomers: ['dog', 'spa'],
     Kennels: ["dog", 'lodging'],
     Vet: ["dog", "veterinary_care"]

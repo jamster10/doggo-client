@@ -68,7 +68,6 @@ class App extends Component {
   }
 
   errorHandler = (error, recoveryStateFix) => {
-    console.log('im here')
     this.setState({
       error: error.message,
     })

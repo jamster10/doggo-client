@@ -5,12 +5,11 @@ import AuthService from '../../Services/authentication-api'
 
 
 const Registration = ({errorHandler}) => {
-  let [ username, setUsername ] = useState('')
-  let [ nickname, setNickname ] = useState('')
+  const [ username, setUsername ] = useState('')
+  const [ nickname, setNickname ] = useState('')
 
   const verifyName = (e) => {
     const typed = e.target.value;
-    console.log(e.target)
     const lastChar = typed.substr(-1)
     if ( ['<', '>', '^', '$','&', '%', '`', '"', `'`, '*', '!', '=', '+', '|', `/`].includes(lastChar) ){
       errorHandler({message: `invalid character: '${lastChar}'.` })

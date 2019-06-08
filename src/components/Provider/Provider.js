@@ -4,7 +4,7 @@ import Sidepanel from '../Sidepanel/Sidepanel'
 import PlacesApiService from '../../Services/places-service'
 import TokenService from '../../Services/token-service'
 
-const dogRouteOptions =['Bars', 'Parks', 'Pet Store', 'Lodging', 'Groomers', 'Kennels', 'Vet'];
+const dogRouteOptions =['Bars', 'Parks', 'Pet Store', 'Lodging', 'Vet'];
 
 class Provider extends React.Component{
   constructor(props){
@@ -27,12 +27,7 @@ class Provider extends React.Component{
     myPlaces: []
   }
 
-  componentDidMount() {
-    
-    if(TokenService.hasAuthToken()){
-      this.getMyPlaces();
-    }
-  }
+ 
 
   handleEnableSearch = (e) => {
     e.preventDefault();
@@ -92,7 +87,6 @@ class Provider extends React.Component{
  }
 
  handleSearch = () => {
-   console.log(this.mapComponent)
    this.setState({results: []})
    this.mapComponent.current.beginSearch()
 
@@ -100,19 +94,20 @@ class Provider extends React.Component{
  }
 
  handleListeners = () => {
-   console.log(this.mapComponent)
-   this.mapComponent.current.setUpListeners();
+   this.mapComponent.current.setup();
  }
 
  toggleSavePlace = (id) => {
    const result = this.state.results.find(item => item.place_id === id)
    result.saved = true;
+   this.setState({
+     results: [this.state.results.filter(result => result.place_id !==id), result]
+   })
  }
 
  getMyPlaces = () => {
-   console.log('i run')
   PlacesApiService.getPlaces()
-    .then(myPlaces => {this.setState({myPlaces}, console.log(myPlaces)) })
+    .then(myPlaces => {this.setState({myPlaces}) })
  }
 
   render(){
@@ -130,6 +125,7 @@ class Provider extends React.Component{
     return(
       <>  
         <Sidepanel 
+        
         handleListeners={this.handleListeners}
         loggedIn={this.props.loggedIn} 
         searchSettings = {searchSettings} 

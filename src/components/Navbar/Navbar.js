@@ -1,14 +1,16 @@
 import React from 'react';
 import './Navbar.css'
-import { NavLink } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
+
 import  TokenService from '../../Services/token-service'
 
 
-const Navbar = ({ loggedIn, handleLogout }) => {
+const Navbar = ({ loggedIn, handleLogout, history }) => {
 
   const clearAuth = () => {
     TokenService.clearToken();
     handleLogout();
+    history.push('/')
   }
 
  const userControls = loggedIn ? <div className= "user-controls"><button className="nav-search-btn"><NavLink to="/">Search!</NavLink></button>|<button><NavLink to="/myplaces">My Places</NavLink></button>|<button onClick={clearAuth}>Logout</button></div> : <div className= "user-controls"><button className="nav-search-btn"><NavLink to="/">Search!</NavLink></button>|<button><NavLink to="/login">Login</NavLink></button>|<button><NavLink to="/register">Sign Up!</NavLink></button></div>;
@@ -25,4 +27,4 @@ const Navbar = ({ loggedIn, handleLogout }) => {
   )
 }
 
-export default Navbar;  
+export default withRouter(Navbar);  

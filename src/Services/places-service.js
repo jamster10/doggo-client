@@ -39,7 +39,13 @@ const PlaceApiService = {
         'authorization': `bearer ${TokenService.getAuthToken()}`,
       },
       body: JSON.stringify({
-        place
+        address: place.address,
+        name: place.name,
+        place_id: place.place_id,
+        price_level: place.price_level,
+        rating: place.rating,
+        user_ratings_total: place.user_ratings_total,
+        saved: place.saved
       }),
     })
     .then(res => {

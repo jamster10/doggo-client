@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import ResultItem from '../Results/ResultItem';
-import ResultsList from '../Results/ResultsList';
-import ResultList from '../Results/ResultsList';
+import React, { useState, useEffect } from 'react';
 import PlaceApiService from '../../Services/places-service'
 
 
-const MyPlaces = ({ myPlaces, errorHandler, deletePlace }) => {
-  const [serviceWorking, toggleServiceWorking] = useState(false)
+const MyPlaces = ({ myPlaces, errorHandler, deletePlace, getMyPlaces}) => {
+
+
+  useEffect( ()=>{
+    getMyPlaces();
+  }, [])
 
   const pricelevelFinder = (result) => {
     if(!result.hasOwnProperty('price_level')) return
@@ -33,17 +34,15 @@ const MyPlaces = ({ myPlaces, errorHandler, deletePlace }) => {
   }
 
   const removeItem = (placeId) => {
-    toggleServiceWorking(!serviceWorking);
       PlaceApiService.deletePlace(placeId)
         .then(_ => {
-          removeItem(placeId)
-          toggleServiceWorking(!serviceWorking)
+          getMyPlaces();
         })
         .catch(errorHandler)
   }
 
   const createdList = myPlaces.map(result => (
-    <li className="single-result" key={result.placeId}>
+    <li className="single-result" key={result.place_id}>
       <div className="info-box">
         <h3 className="result-name">{result.name}</h3>
         <p className="result-address">{result.address}</p>
@@ -51,8 +50,8 @@ const MyPlaces = ({ myPlaces, errorHandler, deletePlace }) => {
       <div className="result-btn-container">
         {pricelevelFinder(result)}
         {ratingFinder(result)}<span className="rating-count">({result.user_ratings_total})</span>
-        <button className="result-btns save-button" disabled={serviceWorking} onClick={() => removeItem(result.place_id)}>{result.saved ? 'saved' : 'save'}</button>
-        <button className="result-btns more-info-button" >More Info</button>
+        <button className="result-btns save-button"  onClick={() => removeItem(result.place_id)}>Delete</button>
+        {/* <button className="result-btns more-info-button" >More Info</button> */}
       </div>
     </li>
     )

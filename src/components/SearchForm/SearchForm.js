@@ -5,11 +5,10 @@ import './SearchForm.css'
 
 const SearchForm = ({handleListeners, searchSettings, enableSearch, beginSearch}) => {
   let {currentCity, startLocation, endLocation, handleRouteInput, checkboxes, handleCheckboxChange, routeOptions} = searchSettings;
-  
-    useEffect( () => {
-      setTimeout(() =>handleListeners(), 5000);
-    })
-  // handleListeners();
+ 
+useEffect( () => {
+  setTimeout(()=> handleListeners(),1000)
+},[])
 
   const createCheckbox = (option) => {
     return <Checkbox key={option} label={option} isSelected={checkboxes[option]} onCheckboxChange={handleCheckboxChange}/>

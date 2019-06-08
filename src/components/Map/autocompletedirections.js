@@ -19,7 +19,7 @@ export default function AutocompleteDirectionsHandler(map, RouteBoxer, selection
   this.enableSearch = enableSearch;
   this.preventSearch = preventSearch;
   this.beginSearch =   this.route.bind(this, this.map);
-  this.setUpListeners = this.setupPlaceChangedListener.bind(this);
+
 
   this.errorHandler = errorHandler;
   //this.selections = selections;
@@ -35,7 +35,7 @@ export default function AutocompleteDirectionsHandler(map, RouteBoxer, selection
 
     this.setupPlaceChangedListener(this.origin, 'ORIG');
     this.setupPlaceChangedListener(this.destination, 'DEST');
-  
+
 
 }
 
