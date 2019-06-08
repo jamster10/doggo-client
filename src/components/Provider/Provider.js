@@ -101,7 +101,7 @@ class Provider extends React.Component{
    const result = this.state.results.find(item => item.place_id === id)
    result.saved = true;
    this.setState({
-     results: [this.state.results.filter(result => result.place_id !==id), result]
+     results: [...this.state.results.filter(result => result.place_id !==id), result]
    })
  }
 
