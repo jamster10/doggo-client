@@ -40,14 +40,14 @@ class App extends Component {
   }
 
   getLocation = () => {
-    return fetch('http://ip-api.com/json/')
+    return fetch('https://extreme-ip-lookup.com/json/')
     .then(res=>res.json())
     .then(loc => {
       if(!loc.city) return Promise.reject({message: 'no city provided'})
       this.setState({
       location: {
-        lat: loc.lat,
-        lon: loc.lon,
+        lat: Number(loc.lat),
+        lon: Number(loc.lon),
         city: loc.city,
         }
 
