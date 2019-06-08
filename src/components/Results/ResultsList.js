@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ResultItem from './ResultItem';
 import './Results.css'
 import PlaceApiService from '../../Services/places-service'
+import TokenService from '../../Services/token-service'
 
 const ResultList = ({results, errorHandler, savePlace}) => {
 
@@ -32,6 +33,10 @@ const ResultList = ({results, errorHandler, savePlace}) => {
   }
 
   const handleSaving = (result) => {
+    if(!TokenService.hasAuthToken()){
+      errorHandler({message: "Login to save places"})
+      return;
+    }
     if (result.saved){
       PlaceApiService.deletePlace(result.placeId)
         .then(_ => {
