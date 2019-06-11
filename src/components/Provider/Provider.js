@@ -2,7 +2,7 @@ import React from 'react';
 import Map from '../Map/Map'
 import Sidepanel from '../Sidepanel/Sidepanel'
 import PlacesApiService from '../../Services/places-service'
-import TokenService from '../../Services/token-service'
+
 
 const dogRouteOptions =['Bars', 'Parks', 'Pet Store', 'Lodging', 'Vet'];
 

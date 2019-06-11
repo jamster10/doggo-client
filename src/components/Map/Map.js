@@ -48,10 +48,11 @@ class Map extends React.Component {
   componentDidMount(){
     // this.setup()
   }
-   setup = () => {
-     window.initMap = () => {
-       this.initMap();
-     }
+ 
+  setup = () => {
+    window.initMap = () => {
+      this.initMap();
+    }
 
     loadScript(`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_G_MAPS_KEY}&libraries=places&callback=initMap`);
   }

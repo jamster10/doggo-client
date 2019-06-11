@@ -18,7 +18,6 @@ const Sidepanel = ({children, searchSettings, errorHandler, enableSearch, result
 
   const headerBar = children ? <p className="error-message">{children}</p> : <p className="welcome-text-side"><b>Welcome to DogGo!</b></p>
 
-  console.log(waitingOnServer)
   return (
   <div className="Sidepanel">
     <div className="controls">
