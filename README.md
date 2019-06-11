@@ -1,7 +1,7 @@
 # DogGo!
 DogGo is a full-stack applicaiton, that solves one part of of the navigation problem in which a user wants to find specific things along a route. While the focus in this application is dog friendly places. The implication extends to any google map searchable group or places. 
 
-![main site](https://ibb.co/GJTj8Zv)
+![main site](https://i.ibb.co/PYQ8P2Z/image.png)
 
 ## Summary
 Most of the heavy lifting is handled by the client. Google Maps' API is handled without any helper libraries which allows for a more intuitive understanding. Much of its functionality is pulled out over various files to accomplish encapsulating various parts of the API. A library called [RouteBoxer](https://github.com/googlemaps/v3-utility-library/tree/master/routeboxer) is used to create an array of bounds from a users route query. This array is then iterated over for a users search selection.
