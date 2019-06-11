@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import PlaceApiService from '../../Services/places-service'
 
 
-const MyPlaces = ({ myPlaces, errorHandler, deletePlace, getMyPlaces}) => {
+const MyPlaces = ({ myPlaces, errorHandler, deletePlace, getMyPlaces, waitingOnServer}) => {
+
 
 
   useEffect( ()=>{
+    waitingOnServer.waiting();
     getMyPlaces();
+    waitingOnServer.notWaiting();
   }, [])
 
   const pricelevelFinder = (result) => {
@@ -34,14 +37,19 @@ const MyPlaces = ({ myPlaces, errorHandler, deletePlace, getMyPlaces}) => {
   }
 
   const removeItem = (placeId) => {
-      PlaceApiService.deletePlace(placeId)
-        .then(_ => {
-          getMyPlaces();
-        })
-        .catch(errorHandler)
+    waitingOnServer.waiting();
+    PlaceApiService.deletePlace(placeId)
+      .then(_ => {
+        waitingOnServer.notWaiting();
+        getMyPlaces();
+      })
+      .catch((e) =>{
+        waitingOnServer.notWaiting();
+        errorHandler(e)
+      })
   }
-
-  const createdList = myPlaces.map(result => (
+  
+  const createdList = Array.isArray(myPlaces) ? myPlaces.map(result => (
     <li className="single-result" key={result.place_id}>
       <div className="info-box">
         <h3 className="result-name">{result.name}</h3>
@@ -55,7 +63,7 @@ const MyPlaces = ({ myPlaces, errorHandler, deletePlace, getMyPlaces}) => {
       </div>
     </li>
     )
-  );
+  ) : ''
   return (
     <div className="results-section">
       <ul className="results">
@@ -63,6 +71,10 @@ const MyPlaces = ({ myPlaces, errorHandler, deletePlace, getMyPlaces}) => {
       </ul>
     </div>
   );
+}
+
+MyPlaces.defaultProps = {
+  myPlaces: []  
 }
   
 

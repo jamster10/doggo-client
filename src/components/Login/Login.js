@@ -4,26 +4,32 @@ import AuthService from '../../Services/authentication-api'
 
 
 
-const Login = ({errorHandler, handleLogin, getMyPlaces,  ...props}) =>  {
+const Login = ({errorHandler, handleLogin, getMyPlaces, waitingOnServer, ...props}) =>  {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { username, password } = e.target;
 
+    waitingOnServer.waiting();
     AuthService.loginUser({
       user_name: username.value,
       password: password.value
     })
       .then(res =>{
         if (res.message){ 
+          waitingOnServer.notWaiting();
           return Promise.reject(res) 
 
         }
         username.value = "";
         password.value = "";
+        waitingOnServer.notWaiting();
         handleLogin()
         props.routeProps.history.push('/')
       })
-      .catch(errorHandler);
+      .catch((e) => {
+        waitingOnServer.notWaiting();
+        errorHandler(e)
+      });
     }
     
   return <form className="login-form" onSubmit={handleSubmit}>

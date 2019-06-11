@@ -2,7 +2,7 @@ import React from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import ResultsList from '../Results/ResultsList';
 
-const SearchView = ({handleListeners, searchSettings, enableSearch, results, beginSearch, errorHandler, savePlace, searchFormInputs}) => (
+const SearchView = ({handleListeners, searchSettings, enableSearch, results, beginSearch, errorHandler, savePlace, searchFormInputs, waitingOnServer}) => (
   <>
     <SearchForm 
       handleListeners={handleListeners}
@@ -12,7 +12,7 @@ const SearchView = ({handleListeners, searchSettings, enableSearch, results, beg
     
     >{searchFormInputs}</SearchForm>
 
-    <ResultsList errorHandler={errorHandler} results={results} savePlace={savePlace}/>
+    <ResultsList errorHandler={errorHandler} results={results} savePlace={savePlace} waitingOnServer={waitingOnServer}/>
   </>
 )
 

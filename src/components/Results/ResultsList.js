@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import ResultItem from './ResultItem';
 import './Results.css'
 import PlaceApiService from '../../Services/places-service'
 import TokenService from '../../Services/token-service'
 
-const ResultList = ({results, errorHandler, savePlace}) => {
+const ResultList = ({results, errorHandler, savePlace, history, waitingOnServer}) => {
 
   const [serviceWorking, toggleServiceWorking] = useState(false)
   
@@ -33,25 +34,32 @@ const ResultList = ({results, errorHandler, savePlace}) => {
   }
 
   const handleSaving = (result) => {
+    console.log(waitingOnServer)
     if(!TokenService.hasAuthToken()){
       errorHandler({message: "Login to save places"})
+      history.push('/login')
       return;
     }
     if (result.saved){
+      waitingOnServer.waiting()
       PlaceApiService.deletePlace(result.placeId)
         .then(_ => {
           savePlace(result.place_id)
         })
         .catch(errorHandler)
     } else{
+      waitingOnServer.waiting()
       PlaceApiService.savePlace(result)
         .then(_ => {
+          waitingOnServer.notWaiting()
           savePlace(result.place_id)
         })
         .catch(e => {
+          waitingOnServer.notWaiting()
           errorHandler(e)
         })
     }
+    
   }
 
   const createdList = results.map(result => (
@@ -75,4 +83,4 @@ const ResultList = ({results, errorHandler, savePlace}) => {
   );
 }
 
-export default ResultList;
+export default withRouter(ResultList);

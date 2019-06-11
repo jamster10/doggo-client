@@ -89,6 +89,10 @@ class Provider extends React.Component{
  handleSearch = () => {
    this.setState({results: []})
    this.mapComponent.current.beginSearch()
+   this.setState({
+     'origin-input': '',
+     'destination-input':''
+   })
 
    // console.log(this.mapComponent)
  }
@@ -125,7 +129,7 @@ class Provider extends React.Component{
     return(
       <>  
         <Sidepanel 
-        
+        waitingOnServer={this.props.waitingOnServer}
         handleListeners={this.handleListeners}
         loggedIn={this.props.loggedIn} 
         searchSettings = {searchSettings} 

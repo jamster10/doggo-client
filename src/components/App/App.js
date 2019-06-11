@@ -4,7 +4,8 @@ import Navbar from '../Navbar/Navbar';
 import Provider from '../Provider/Provider';
 import Modal from '../Modal/Modal.js';
 import Intro from '../Intro/Intro'
-import TokenService from '../../Services/token-service'
+import TokenService from '../../Services/token-service';
+import Loading from '../Loading/Loading';
 
 class App extends Component {
   state={
@@ -15,7 +16,8 @@ class App extends Component {
     },
     showModal:true,
     error: null,
-    loggedIn: false
+    loggedIn: true,
+    waitingOnServer: false
   }
 
   componentDidMount(){
@@ -78,15 +80,29 @@ class App extends Component {
     setTimeout(() => this.setState({error: null}), 5000);
   }
 
+  waitingOnServer = () => {
+    console.log('im called')
+    this.setState({waitingOnServer: true
+    })
+    setTimeout(() => this.notWaitingOnServer(), 5000)
+  }
+
+  notWaitingOnServer = () => {
+    this.setState({waitingOnServer: false
+    })
+  }
+
   render() {
     return (
       <>
         { this.state.showModal ? <Modal> <Intro disableModal={this.disableModal}/>  </Modal> :  ""} 
+        { this.state.waitingOnServer ? <Modal> <Loading/>  </Modal> :  ""} 
       <nav>
       <Navbar loggedIn={this.state.loggedIn} handleLogout={this.handleLogout}/>
       </nav>  
       <main>
-        <Provider
+        <Provider 
+          waitingOnServer ={{waiting: this.waitingOnServer, notWaiting: this.notWaitingOnServer}}
           handleLogin={this.handleLogin}
           errorHandler={this.errorHandler}
           location={this.state.location}

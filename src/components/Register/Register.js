@@ -4,7 +4,8 @@ import AuthService from '../../Services/authentication-api'
 
 
 
-const Registration = ({errorHandler}) => {
+
+const Registration = ({errorHandler, handleLogin, waitingOnServer, ...props}) => {
   const [ username, setUsername ] = useState('')
   const [ nickname, setNickname ] = useState('')
 
@@ -27,6 +28,7 @@ const Registration = ({errorHandler}) => {
   }
 
     const handleSubmit = (e) => {
+      
     e.preventDefault();
     const { username, nickname, password, confirm } = e.target;
     if (confirm.value !== password.value){
@@ -40,14 +42,20 @@ const Registration = ({errorHandler}) => {
     }
     
     if (nickname) newUser.nickname = nickname.value;
-    
+    waitingOnServer.waiting()
     AuthService.registerUser(newUser)
     .then(res => {
       if (res.message){ 
+        waitingOnServer.notWaiting()
+        props.routeProps.history.push('/')
         return Promise.reject(res) 
       }
     })
-    .catch(e => errorHandler(e))
+    .catch(e => {
+      waitingOnServer.notWaiting()
+      errorHandler(e)
+    });
+    
   };
 
   return (  <form 
