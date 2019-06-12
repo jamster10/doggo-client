@@ -16,7 +16,7 @@ class App extends Component {
     },
     showModal:true,
     error: null,
-    loggedIn: true,
+    loggedIn: false,
     waitingOnServer: false
   }
 
