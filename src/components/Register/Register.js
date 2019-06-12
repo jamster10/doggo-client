@@ -60,6 +60,7 @@ const Registration = ({errorHandler, handleLogin, waitingOnServer, ...props}) =>
 
   return (  <form 
     className="register-form" onSubmit={handleSubmit}>
+      <fieldset name="sign up">
     <label htmlFor="username">Username<span className="required">*</span>: </label>
     <input type="text" className="register-input" name="username" id="username" maxLength="15" minLength="3" placeholder="doggo_fan" value={username} onChange={verifyName} required/>
     <br/>
@@ -71,9 +72,9 @@ const Registration = ({errorHandler, handleLogin, waitingOnServer, ...props}) =>
     
     <label htmlFor="password"> Confirm: <span className="required">*</span>: </label>
     <input type="password" className="register-input" name="confirm" id="confirm" maxLength="60" minLength="8" placeholder="" required/>
-    <br/>
-    <br/>
-    <input type="submit"></input>
+  
+    <input className="register-submit" type="submit"></input>
+    </fieldset>
   </form>
   )};
 

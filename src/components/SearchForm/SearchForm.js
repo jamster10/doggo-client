@@ -21,7 +21,7 @@ useEffect( () => {
       <label htmlFor="origin-input">Start:</label>
       <input className="query-input" type="text"  name="origin-input" id="origin-input" placeholder={currentCity} value={startLocation} onChange={handleRouteInput}></input>
     </div>
-    <br/>
+
     <div className="main-search-container">
       <div className="input-item input-end">
         <label htmlFor="destination-input">End:</label>

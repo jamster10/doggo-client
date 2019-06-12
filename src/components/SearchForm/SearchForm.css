@@ -11,13 +11,21 @@ label{
 
 .input-end{
   padding-left: 10px;
+  padding-bottom: 20px;
 }
+
+
 
 fieldset{
   margin-top: 30px;
+  width: 300px;
 }
 
+
+
 .query-form{
+  
+  font-size: 15px;
   margin-top:15px;
   margin-left:10px;
   padding-bottom: 10px;
@@ -29,6 +37,7 @@ fieldset{
 }
 
 .search-btn{
+  margin-top: 20px;
   margin-left: 20px;
   background-color: transparent;
   border: 1px solid black;

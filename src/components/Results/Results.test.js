@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SidePanel from './SidePanel';
+import Results from './Results';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<SidePanel />, div);
+  ReactDOM.render(<Results />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
