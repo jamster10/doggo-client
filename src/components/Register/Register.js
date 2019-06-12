@@ -60,7 +60,7 @@ const Registration = ({errorHandler, handleLogin, waitingOnServer, ...props}) =>
 
   return (  <form 
     className="register-form" onSubmit={handleSubmit}>
-      <fieldset name="sign up">
+      <fieldset className= "register-fieldset" name="sign up">
     <label htmlFor="username">Username<span className="required">*</span>: </label>
     <input type="text" className="register-input" name="username" id="username" maxLength="15" minLength="3" placeholder="doggo_fan" value={username} onChange={verifyName} required/>
     <br/>
