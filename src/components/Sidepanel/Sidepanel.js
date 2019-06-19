@@ -43,7 +43,7 @@ const Sidepanel = ({children, searchSettings, errorHandler, enableSearch, result
       <Route
         exact
         path={'/register'}
-        render={(routeProps) => <Register routeProps={routeProps} errorHandler={errorHandler} waitingOnServer={waitingOnServer}/>}
+        render={(routeProps) => <Register routeProps={routeProps} errorHandler={errorHandler} waitingOnServer={waitingOnServer} handleLogin={handleLogin}/>}
       />
     </Switch>
     

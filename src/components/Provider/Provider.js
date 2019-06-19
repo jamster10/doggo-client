@@ -109,9 +109,9 @@ class Provider extends React.Component{
    })
  }
 
- getMyPlaces = () => {
-  PlacesApiService.getPlaces()
-    .then(myPlaces => {this.setState({myPlaces}) })
+  getMyPlaces = async () => {
+    const myPlaces = await PlacesApiService.getPlaces()
+    this.setState({myPlaces})
  }
 
   render(){

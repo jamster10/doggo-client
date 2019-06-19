@@ -3,45 +3,38 @@ import { rejects } from 'assert';
 import TokenService from './token-service'
 
 const AuthService = {
-  registerUser(user) {
+  async registerUser(user) {
 
-    return fetch(config.API_ENDPOINT + '/users/register', {
+    const response = await fetch(config.API_ENDPOINT + '/users/register', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
       },
       body: JSON.stringify(user),
     })
-    .then(res => res.json())
-    .then(res => {
-      
-      if (!res.ok) { 
-        return Promise.reject(res)
-      }
-      this.loginUser(user)
-    })
-    .catch(e => e)
-  }, 
-  loginUser(user) {
-    return fetch(config.API_ENDPOINT + '/auth/login', {
+
+    if(!response.ok){
+      const jsonError = await response.json();
+      return Promise.reject(jsonError)
+    }
+    this.loginUser(user)
+  },
+
+  async loginUser(user) {
+    const response = await fetch(config.API_ENDPOINT + '/auth/login', {
       method: 'POST',
       headers:{
         'content-type': 'application/json'
       },
       body: JSON.stringify(user)
     })
-    .then(res => {
-      if (!res.ok) {
-        return Promise.reject(res.json())
-       }
-      return res.json()
-    })
-    .then(res => {
-      TokenService.saveAuthToken(res.token)
-      //add expiration here
-      return res;
-    })
-    .catch(e => e)
+
+    if (!response.ok){
+      const error = await response.json()
+      return Promise.reject(error)
+    }
+    const data = await response.json();
+    TokenService.saveAuthToken(data.token)
   }, 
   getRefreshToken() {
     return fetch(config.API_ENDPOINT + '/api/auth/refresh', {

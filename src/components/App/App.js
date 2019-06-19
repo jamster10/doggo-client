@@ -81,7 +81,6 @@ class App extends Component {
   }
 
   waitingOnServer = () => {
-    console.log('im called')
     this.setState({waitingOnServer: true
     })
     setTimeout(() => this.notWaitingOnServer(), 5000)

@@ -27,13 +27,14 @@ const Registration = ({errorHandler, handleLogin, waitingOnServer, ...props}) =>
     setNickname(typed)
   }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       
     e.preventDefault();
     const { username, nickname, password, confirm } = e.target;
     if (confirm.value !== password.value){
       errorHandler({message: "Your passwords do not match"})
       confirm.value = "";
+      return
     }
 
     const newUser = {
@@ -43,19 +44,17 @@ const Registration = ({errorHandler, handleLogin, waitingOnServer, ...props}) =>
     
     if (nickname) newUser.nickname = nickname.value;
     waitingOnServer.waiting()
-    AuthService.registerUser(newUser)
-    .then(res => {
-      if (res.message){ 
-        waitingOnServer.notWaiting()
-        props.routeProps.history.push('/')
-        return Promise.reject(res) 
-      }
-    })
-    .catch(e => {
+    try {
+      await AuthService.registerUser(newUser) 
+      
+      waitingOnServer.notWaiting()
+      handleLogin();
+      props.routeProps.history.push('/')
+       
+    } catch(e) {
       waitingOnServer.notWaiting()
       errorHandler(e)
-    });
-    
+    };
   };
 
   return (  <form 
